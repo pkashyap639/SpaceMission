@@ -19,6 +19,31 @@ app.get("/missions", async (req, res) => {
     res.status(500).json({ message: "Error fetching missions", error });
   }
 });
+
+app.post("/missions", async (req, res) => {
+  try {
+    const { missionName, launchDate, missionStatus, outcome, resource } =
+      req.body;
+
+    // Create a new mission using the request body data
+    const newMission = new Mission({
+      missionName,
+      launchDate,
+      missionStatus,
+      outcome,
+      resource,
+    });
+
+    // Save the mission to the database
+    const savedMission = await newMission.save();
+
+    // Send a success response
+    res.status(201).json(savedMission);
+  } catch (error) {
+    res.status(500).json({ message: "Error creating mission", error });
+  }
+});
+
 app.post("/addmission", (req, res) => {
   const mission = new Mission({
     missionName: "Appolo 11",
