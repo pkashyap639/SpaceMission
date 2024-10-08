@@ -20,6 +20,16 @@ app.post("/addmission", (req, res) => {
     missionName: "Appolo 11",
     launchDate: "1969-07-16T00:00:00Z",
     missionStatus: "completed",
+    outcome: {
+      outcomeType: "Type 1",
+      description: "Mission Description",
+      outcomeStatus: "success",
+    },
+    resources: {
+      resourceType: "Type 3",
+      allocatedAmount: "2",
+      usedAmount: "1",
+    },
   })
     .save()
     .then(() => {

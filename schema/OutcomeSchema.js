@@ -2,11 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const OutcomeSchema = new Schema({
-  missionId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Mission", // Refers to the parent Mission
-    required: true,
-  },
   outcomeType: {
     type: String,
     required: true,
@@ -22,5 +17,4 @@ const OutcomeSchema = new Schema({
   },
 });
 
-const Outcome = mongoose.model("Outcome", OutcomeSchema);
-module.exports = Outcome;
+module.exports = OutcomeSchema;
