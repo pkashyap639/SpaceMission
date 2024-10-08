@@ -11,10 +11,14 @@ mongoose.connect(MONGODB_URI, {
   useUnifiedTopology: true,
 });
 
-app.get("/", (req, res) => {
-  res.send("Mission List");
+app.get("/missions", async (req, res) => {
+  try {
+    const missions = await Mission.find(); // Fetch all missions from the database
+    res.status(200).json(missions);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching missions", error });
+  }
 });
-
 app.post("/addmission", (req, res) => {
   const mission = new Mission({
     missionName: "Appolo 11",
