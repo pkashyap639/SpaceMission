@@ -1,22 +1,16 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 const MissionList = () => {
-  const [missions, setMissions] = useState([
-    {
-    
-      name: "mission 1",
-      launchdate: "12-12-24",
-      status: "upcoming",
-      id:111
-    },
-    {
-        name: "mission 2",
-        launchdate: "10-09-24",
-        status: "Completed",
-        id:222
-      },
-  ]);
+  const [missions, setMissions] = useState([]);
+
+  useEffect(()=>{
+    axios.get('http://localhost:3000/missions')
+        .then(result => setMissions(result.data))
+        .catch(err=> console.log(err))
+
+  },[])
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
@@ -44,8 +38,8 @@ const MissionList = () => {
               key={index}
               className="border-b hover:bg-gray-50 transition-colors"
             >
-              <td className="px-4 py-2">{mission.name}</td>
-              <td className="px-4 py-2">{mission.launchdate}</td>
+              <td className="px-4 py-2">{mission.missionName}</td>
+              <td className="px-4 py-2">{mission.launchDate}</td>
               <td className="px-4 py-2">
                 <span
                   className={`px-2 py-1 text-sm font-semibold rounded-full ${
@@ -54,7 +48,7 @@ const MissionList = () => {
                       : "bg-green-200 text-green-800"
                   }`}
                 >
-                  {mission.status}
+                  {mission.missionStatus}
                 </span>
               </td>
               <td className="px-4 py-2"> {/* Manage Column */}

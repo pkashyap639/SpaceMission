@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 const Mission = require("./schema/MissionSchema");
 const app = express();
 const PORT = 3000;
+const cors = require('cors');
+
+app.use(cors());
+
+
 
 // connection for mongo db
 const MONGODB_URI = `mongodb+srv://pkashyap148:spacemission@spacemission.z4pt6.mongodb.net/?retryWrites=true&w=majority&appName=spacemission`;
@@ -24,7 +29,7 @@ app.post("/missions", async (req, res) => {
   try {
     const { missionName, launchDate, missionStatus, outcome, resource } =
       req.body;
-
+    console.log(req.body)
     // Create a new mission using the request body data
     const newMission = new Mission({
       missionName,
